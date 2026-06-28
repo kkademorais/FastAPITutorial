@@ -16,6 +16,11 @@ class UserResponse(UserBase):
     image_file: str | None
     image_path: str
 
+class UserUpdate(UserBase):
+    username: str | None = Field(default= None, min_length=1, max_length=50)
+    email: EmailStr | None = Field(default= None, max_length=120)
+    image_file: str | None = Field(default=None, min_length=1, max_length=200)
+
 class PostBase(BaseModel):
     title: str = Field(min_length=1, max_length=100)
     content: str = Field(min_length=1)
@@ -23,6 +28,9 @@ class PostBase(BaseModel):
 class PostCreate(PostBase):
     user_id: int # Temporário até implementar autenticação
 
+class PostUpdate(PostBase):
+    title: str | None = Field(default= None, min_length=1, max_length=100)
+    content: str | None = Field(default=None, min_length=1)
 
 class PostResponse(PostBase):
     model_config = ConfigDict(from_attributes=True)
